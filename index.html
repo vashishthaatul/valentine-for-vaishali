@@ -87,6 +87,28 @@ transition:1s;
 
 #celebration.show{opacity:1;pointer-events:auto;}
 
+#calculatingScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-size:1.5rem;
+opacity:0;
+pointer-events:none;
+transition:0.5s;
+}
+
+#calculatingScreen.show{
+opacity:1;
+pointer-events:auto;
+}
+
 .heartRain{
 position:fixed;
 top:-20px;
@@ -118,16 +140,19 @@ I don’t know what future holds, but I know I want you in it.
 <button onclick="scrollNext()">One Last Thing ❤️</button>
 </section><section>
 <h1>Will You Be My Valentine? 💖</h1>
+<p id="reactionText"></p>
 <div id="proposalButtons">
 <button id="yesBtn">YES 💘</button>
 <button id="noBtn">NO 💔</button>
 </div><video id="noVideo" class="videoBox" muted loop></video>
 
 </section><div id="celebration">
-<div>You Said YES 😭❤️</div><video id="yesVideo" class="videoBox" src="yes.mp4" autoplay loop muted></video>
+<div id="yesText">You Said YES 😭❤️</div><video id="yesVideo" class="videoBox" src="yes.mp4" autoplay loop muted></video>
 
 <div style="font-size:1.2rem;margin-top:15px;">Now say YES officially on WhatsApp 😌</div>
 <button onclick="sendWhatsAppYes()">Say Yes On WhatsApp 💬</button>
+</div><div id="calculatingScreen">
+<p id="calcText">Calculating Vaishali's feelings...</p>
 </div><script>
 
 const music = document.getElementById("music");
@@ -157,17 +182,47 @@ const yesBtn=document.getElementById("yesBtn");
 const celebration=document.getElementById("celebration");
 const noVideo=document.getElementById("noVideo");
 const yesVideo=document.getElementById("yesVideo");
+const reactionText=document.getElementById("reactionText");
+const calculatingScreen=document.getElementById("calculatingScreen");
+const calcText=document.getElementById("calcText");
+const yesText=document.getElementById("yesText");
 
 const noVideos=["no1.mp4","no2.mp4","no3.mp4"];
+
+const noMessages=[
+"Please think again 🥺",
+"You are breaking my heart 🥺"
+];
 
 let yesSize=1;
 let noCount=0;
 
 noBtn.addEventListener("click",()=>{
 
+reactionText.innerText = noMessages[noCount % noMessages.length];
+
 noVideo.src = noVideos[noCount % noVideos.length];
 noVideo.classList.add("show");
 noVideo.play();
+
+noCount++;
+
+// Fake calculating screen after 3 NO clicks
+if(noCount === 3){
+calculatingScreen.classList.add("show");
+
+setTimeout(()=>{
+calcText.innerText = "Analyzing Vaishali's heart...";
+},1500);
+
+setTimeout(()=>{
+calcText.innerText = "Result: She secretly loves you 😌";
+},3000);
+
+setTimeout(()=>{
+calculatingScreen.classList.remove("show");
+},5000);
+}
 
 let x=Math.random()*250-125;
 let y=Math.random()*150-75;
@@ -175,14 +230,14 @@ noBtn.style.transform=`translate(${x}px,${y}px) scale(${1-noCount*0.08})`;
 
 yesSize+=0.2;
 yesBtn.style.transform=`scale(${yesSize})`;
-
-noCount++;
 });
 
 yesBtn.addEventListener("click",()=>{
 celebration.classList.add("show");
 yesVideo.classList.add("show");
 yesVideo.play();
+
+yesText.innerText = "Shukriya Leelu Yes bolne k liye 😊. I knew you would definitely say yes";
 
 celebrationSound.currentTime = 0;
 celebrationSound.play().catch(()=>{});
@@ -210,4 +265,4 @@ window.open(`https://wa.me/${phoneNumber}?text=${message}`);
 }
 
 </script></body>
-</html>
+  </html>
