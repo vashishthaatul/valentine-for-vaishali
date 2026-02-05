@@ -1,72 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vaishali ❤️</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-
-<style>
+<title>Our Love Story ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet"><style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
 
 body{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-overflow:hidden;
-background: linear-gradient(-45deg,#ff758c,#ff7eb3,#ff9ac6,#ffc2d1);
-background-size:400% 400%;
-animation:bg 12s infinite;
-}
-
-@keyframes bg{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
-
-.card{
-text-align:center;
-padding:40px;
-width:90%;
-max-width:450px;
-border-radius:25px;
-background:rgba(255,255,255,0.2);
-backdrop-filter:blur(15px);
+background: linear-gradient(135deg,#ff758c,#ff7eb3);
+overflow-x:hidden;
 color:white;
 }
 
-h1{margin-bottom:15px;}
+section{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+text-align:center;
+}
 
-#typing{min-height:60px;margin-bottom:20px;}
-
-.buttons{position:relative;height:120px;}
+h1{font-size:2.5rem;margin-bottom:20px;}
+p{max-width:600px;font-size:1.2rem;}
 
 button{
-border:none;
 padding:14px 30px;
+border:none;
 border-radius:40px;
 font-size:18px;
 cursor:pointer;
-position:absolute;
-transition:0.3s;
+margin-top:25px;
+background:#ff2e88;
+color:white;
 }
 
-#yesBtn{background:#ff2e88;color:white;left:25%;}
-#noBtn{background:#ff5f6d;color:white;right:25%;}
-
-.heart{
-position:absolute;
-font-size:20px;
-animation:float 5s linear infinite;
+.slideshow{
+width:250px;
+height:250px;
+border-radius:20px;
+background-size:cover;
+background-position:center;
+margin-top:20px;
+box-shadow:0 0 25px rgba(255,255,255,0.6);
 }
 
-@keyframes float{
-0%{transform:translateY(100vh);}
-100%{transform:translateY(-10vh);}
+#proposalButtons{
+position:relative;
+height:150px;
 }
+
+#yesBtn{position:absolute;left:25%;}
+#noBtn{position:absolute;right:25%;background:#ff5f6d;}
 
 #celebration{
 position:fixed;
@@ -79,121 +65,55 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-color:white;
 font-size:2rem;
 opacity:0;
 pointer-events:none;
 transition:1s;
 }
 
-#celebration.show{
-opacity:1;
-pointer-events:auto;
-}
+#celebration.show{opacity:1;pointer-events:auto;}
 
-#slideshow{
-margin-top:20px;
-width:200px;
-height:200px;
-border-radius:20px;
-background-size:cover;
-background-position:center;
-margin-inline:auto;
-}
+</style></head><body><audio id="music" src="song.mp3" loop></audio>
 
-#letter{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:white;
-color:black;
-padding:25px;
-border-radius:20px;
-width:80%;
-max-width:400px;
-display:none;
-z-index:200;
-}
-
-#countdown{
-margin-bottom:10px;
-font-size:1.1rem;
-}
-
-</style>
-</head>
-
-<body>
-
-<audio id="music" src="song.mp3" loop></audio>
-
-<div class="card">
-
-<div id="countdown"></div>
-
-<h1>Hey Vaishali ❤️</h1>
-
-<p id="typing"></p>
-
-<div id="slideshow"></div>
-
-<div class="buttons">
-<button id="yesBtn">YES 💖</button>
+<!-- INTRO PAGE --><section>
+<h1>Hi Vaishali ❤️</h1>
+<p>I made something special for you. This is our little journey...</p>
+<button onclick="scrollNext()">Start Journey ✨</button>
+</section><!-- MEMORIES PAGE --><section>
+<h1>Our Beautiful Memories 📸</h1>
+<div class="slideshow" id="slideshow"></div>
+<button onclick="scrollNext()">Continue 💕</button>
+</section><!-- LOVE LETTER PAGE --><section>
+<h1>A Letter For You 💌</h1>
+<p>
+Vaishali, from the day you entered my life, everything changed.
+You make my bad days better and good days unforgettable.
+I don’t know what future holds, but I know I want you in it.
+</p>
+<button onclick="scrollNext()">One Last Thing ❤️</button>
+</section><!-- PROPOSAL PAGE --><section>
+<h1>Will You Be My Valentine? 💖</h1>
+<div id="proposalButtons">
+<button id="yesBtn">YES 💘</button>
 <button id="noBtn">NO 💔</button>
 </div>
-
-</div>
-
-<div id="celebration">
-<div>YOU SAID YES 😭❤️</div>
+</section><!-- CELEBRATION --><div id="celebration">
+<div>You Said YES 😭❤️</div>
+<div style="font-size:1.2rem;margin-top:15px;">You just made me the happiest person alive</div>
 <button onclick="shareWhatsApp()">Tell Everyone 😌</button>
-</div>
+</div><script>
 
-<div id="letter">
-<h3>For You 💌</h3>
-<p>
-Vaishali,  
-You make ordinary days special.  
-I don't know what future holds…  
-But I know I want you in it. ❤️  
-</p>
-<button onclick="closeLetter()">Close</button>
-</div>
-
-<script>
-
-/* MUSIC START ON FIRST CLICK */
+// MUSIC PLAY
 document.body.addEventListener("click",()=>{
 document.getElementById("music").play();
 },{once:true});
 
-/* COUNTDOWN */
-const cd=document.getElementById("countdown");
-const target=new Date("Feb 14, 2026 00:00:00").getTime();
-
-setInterval(()=>{
-let now=new Date().getTime();
-let diff=target-now;
-
-let d=Math.floor(diff/(1000*60*60*24));
-let h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-cd.innerHTML=`Valentine Countdown: ${d} days ${h} hrs 💘`;
-},1000);
-
-/* TYPEWRITER */
-const msg="You make my life happier... Will you be my Valentine?";
-let i=0;
-function type(){
-if(i<msg.length){
-typing.innerHTML+=msg.charAt(i);
-i++;
-setTimeout(type,50);
+// SCROLL FUNCTION
+function scrollNext(){
+window.scrollBy({top:window.innerHeight,behavior:'smooth'});
 }
-}
-type();
 
-/* SLIDESHOW */
+// SLIDESHOW
 const photos=["photo1.jpg","photo2.jpg","photo3.jpg"];
 let p=0;
 function slide(){
@@ -203,17 +123,7 @@ p=(p+1)%photos.length;
 slide();
 setInterval(slide,2500);
 
-/* HEARTS */
-setInterval(()=>{
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="❤️";
-h.style.left=Math.random()*100+"vw";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),5000);
-},300);
-
-/* BUTTON LOGIC */
+// PROPOSAL BUTTONS
 let noBtn=document.getElementById("noBtn");
 let yesBtn=document.getElementById("yesBtn");
 let celebration=document.getElementById("celebration");
@@ -223,14 +133,13 @@ let noCount=0;
 
 const noMsgs=[
 "Please think again 🥺",
-"I practiced asking you 😭",
 "I will bring chocolates 🍫",
 "I will sing for you 🎤",
 "Last chance Vaishali 💕"
 ];
 
 noBtn.onclick=()=>{
-typing.innerHTML=noMsgs[noCount%noMsgs.length];
+alert(noMsgs[noCount%noMsgs.length]);
 noCount++;
 
 let x=Math.random()*250-125;
@@ -241,43 +150,15 @@ yesSize+=0.2;
 yesBtn.style.transform=`scale(${yesSize})`;
 };
 
-/* YES CLICK */
+// YES CLICK
 yesBtn.onclick=()=>{
 celebration.classList.add("show");
-fireworks();
 };
 
-/* CONFETTI + FIREWORKS */
-function fireworks(){
-for(let i=0;i<150;i++){
-let c=document.createElement("div");
-c.style.position="absolute";
-c.style.width="8px";
-c.style.height="8px";
-c.style.background=`hsl(${Math.random()*360},100%,60%)`;
-c.style.left=Math.random()*100+"vw";
-c.style.top="0";
-c.style.animation="float 3s linear forwards";
-document.body.appendChild(c);
-setTimeout(()=>c.remove(),3000);
-}
-}
-
-/* LOVE LETTER EASTER EGG */
-document.body.addEventListener("dblclick",()=>{
-document.getElementById("letter").style.display="block";
-});
-
-function closeLetter(){
-document.getElementById("letter").style.display="none";
-}
-
-/* WHATSAPP SHARE */
+// WHATSAPP SHARE
 function shareWhatsApp(){
 window.open("https://wa.me/?text=She said YES ❤️");
 }
 
-</script>
-
-</body>
+</script></body>
 </html>
