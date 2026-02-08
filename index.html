@@ -147,25 +147,48 @@ function slide(){slideshow.style.backgroundImage=`url(${photos[p]})`;p=(p+1)%pho
 setInterval(slide,2500);slide();
 
 /* PROPOSAL */
-let noClicks=0;
-let videoIndex=0;
-const noVideos=['no1.mp4','no2.mp4','no3.mp4'];
-const noBtn=document.getElementById('noBtn');
-const yesBtn=document.getElementById('yesBtn');
-const noVideo=document.getElementById('noVideo');
+let noClicks = 0;
+let videoIndex = 0;
 
-noBtn.onclick=()=>{
-new Audio('angry.mp3').play();
+const noVideos = ['no1.mp4','no2.mp4','no3.mp4'];
 
-noVideo.src=noVideos[videoIndex%noVideos.length];
-noVideo.style.display='block';
-noVideo.play();
-videoIndex++;
+const noMsgs = [
+"Please think again 🥺",
+"You are breaking my heart 🥺",
+"Leelu please mat kr aisa 🥺",
+"Yrr itte bhi kya nkhre kr rhi ho,,, Haan bol do na 😭",
+"Last chance Vaishali 💕"
+];
 
-noClicks++;
-document.getElementById('reactionText').innerText='Please think again 🥺';
+let msgIndex = 0;
 
-if(noClicks===2){setTimeout(startHeartScan,2000);} 
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const noVideo = document.getElementById('noVideo');
+
+noBtn.onclick = () => {
+
+    // Play angry sound
+    new Audio('angry.mp3').play();
+
+    // Play NO videos sequentially
+    noVideo.src = noVideos[videoIndex % noVideos.length];
+    noVideo.style.display = 'block';
+    noVideo.play();
+    videoIndex++;
+
+    // Rotate NO messages
+    document.getElementById('reactionText').innerText =
+    noMsgs[msgIndex % noMsgs.length];
+    msgIndex++;
+
+    // Count clicks for heart scan
+    noClicks++;
+
+    if(noClicks === 2){
+        setTimeout(startHeartScan, 2000);
+    }
+
 };
 
 function startHeartScan(){
