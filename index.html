@@ -8,55 +8,22 @@
 
 body{
 background: linear-gradient(135deg,#ff758c,#ff7eb3);
-overflow-x:hidden;
+overflow:hidden;
 color:white;
 }
 
-/* Sparkle Background */
-.sparkle{
-position:fixed;
-width:6px;
-height:6px;
-background:white;
-border-radius:50%;
-opacity:0.7;
-animation:sparkleFloat 5s linear forwards;
-pointer-events:none;
-}
-
-@keyframes sparkleFloat{
-from{transform:translateY(100vh);} 
-to{transform:translateY(-10vh); opacity:0;} 
-}
-
-/* Floating Hearts */
-.heartBg{
-position:fixed;
-font-size:20px;
-opacity:0.4;
-animation:float 6s linear forwards;
-pointer-events:none;
-}
-
-@keyframes float{
-from{transform:translateY(100vh);} 
-to{transform:translateY(-10vh); opacity:0;} 
-}
-
-section{
-min-height:100dvh;
-display:flex;
+.page{
+display:none;
+height:100vh;
+width:100vw;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 padding:20px;
 text-align:center;
-opacity:0;
-transform:translateY(30px);
-transition:1s;
 }
 
-section.visible{opacity:1;transform:translateY(0);} 
+.page.active{display:flex;}
 
 .heroTitle{font-family:Pacifico;font-size:3rem;}
 
@@ -72,223 +39,200 @@ color:white;
 box-shadow:0 0 15px #ff2e88;
 }
 
+/* Floating Hearts & Sparkles */
+.floatHeart, .sparkle{
+position:fixed;
+pointer-events:none;
+animation:floatUp linear forwards;
+}
+
+.floatHeart{font-size:18px;opacity:0.5;}
+.sparkle{width:6px;height:6px;background:white;border-radius:50%;opacity:0.8;}
+
+@keyframes floatUp{
+from{transform:translateY(100vh);} 
+to{transform:translateY(-10vh); opacity:0;} 
+}
+
 /* Slideshow */
-.slideshowFrame{
-padding:10px;
-border-radius:25px;
-background: linear-gradient(45deg,#ffb6d5,#fff);
-box-shadow:0 0 30px rgba(255,255,255,0.6);
-}
-
-.slideshow{
-width:260px;height:260px;border-radius:20px;background-size:cover;background-position:center;
-}
-
-/* Letter Card */
-.loveCard{
-background:white;color:#ff2e88;padding:30px;border-radius:25px;max-width:350px;
-box-shadow:0 0 30px rgba(0,0,0,0.3);font-family:Pacifico;line-height:1.6;
-}
+.slideshowFrame{padding:10px;border-radius:25px;background:white;}
+.slideshow{width:260px;height:260px;border-radius:20px;background-size:cover;background-position:center;}
 
 /* Timeline */
-.timelineWrapper{position:relative;background:url('paper-texture.png');padding:20px;border-radius:25px;}
+.timelineWrapper{position:relative;width:90%;max-width:400px;margin:auto;}
 
 .timelineCard{
-background:white;color:#ff2e88;padding:30px;border-radius:25px;max-width:360px;
-box-shadow:0 0 30px rgba(0,0,0,0.3);text-align:left;z-index:2;position:relative;
+background:white;color:#ff2e88;padding:25px;border-radius:25px;
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+text-align:left;
 }
 
-.timelineCard p{margin:8px 0;}
-
-/* Polaroid Photo Style */
 .memoryPhoto{
-position:absolute;width:120px;background:white;padding:6px;border-radius:6px;
-box-shadow:0 10px 20px rgba(0,0,0,0.4);
-animation:photoFloat 5s ease-in-out infinite alternate;
+position:absolute;
+width:100px;
+background:white;
+padding:5px;
+border-radius:6px;
+box-shadow:0 8px 15px rgba(0,0,0,0.4);
 }
 
 .memoryPhoto img{width:100%;border-radius:4px;}
 
-.memoryPhoto::before{
-content:"";position:absolute;top:-12px;left:35%;width:45px;height:18px;
-background:#fff;border-radius:4px;opacity:0.8;transform:rotate(-8deg);
-box-shadow:0 2px 4px rgba(0,0,0,0.2);
+.photoTopLeft{top:-40px;left:-20px;transform:rotate(-10deg);}
+.photoTopRight{top:-40px;right:-20px;transform:rotate(8deg);}
+.photoBottomLeft{bottom:-40px;left:-20px;transform:rotate(6deg);}
+.photoBottomRight{bottom:-40px;right:-20px;transform:rotate(-6deg);}
+
+/* Letter Card */
+.loveCard{
+background:white;color:#ff2e88;padding:30px;border-radius:25px;max-width:350px;
+box-shadow:0 0 30px rgba(0,0,0,0.3);font-family:Pacifico;
 }
 
-@keyframes photoFloat{
-from{transform:translateY(0px) rotate(var(--rotate));}
-to{transform:translateY(-6px) rotate(var(--rotate));}
-}
+/* Celebration */
+#celebration{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+background:radial-gradient(circle,#ff4da6,#ff0080);
+flex-direction:column;justify-content:center;align-items:center;}
 
-.photoTopLeft{top:-70px;left:-100px;--rotate:-12deg;}
-.photoTopRight{top:-70px;right:-100px;--rotate:10deg;}
-.photoBottomLeft{bottom:-80px;left:-100px;--rotate:8deg;}
-.photoBottomRight{bottom:-80px;right:-100px;--rotate:-8deg;}
+#celebration.show{display:flex;}
 
-/* Video */
-.videoBox{margin-top:20px;max-width:260px;border-radius:15px;display:none;}
-.videoBox.show{display:block;animation:fadeIn 0.5s ease;}
-
-@keyframes fadeIn{from{opacity:0;transform:scale(0.8);}to{opacity:1;transform:scale(1);}}
-
-#proposalButtons{position:relative;height:150px;}
-#yesBtn{position:absolute;left:25%;}
-#noBtn{position:absolute;right:25%;background:#ff5f6d;}
-
-/* Polaroid Celebration Card */
-.polaroid{
-background:white;padding:15px;border-radius:6px;width:260px;color:#ff2e88;
-box-shadow:0 10px 30px rgba(0,0,0,0.4);transform:rotate(-3deg);
-}
+.polaroid{background:white;padding:15px;border-radius:6px;width:260px;color:#ff2e88;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);transform:rotate(-3deg);} 
 
 .polaroid video{width:100%;border-radius:4px;}
-.polaroidText{font-family:Pacifico;margin-top:8px;}
 
-#celebration{
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:radial-gradient(circle,#ff4da6,#ff0080);
-display:flex;flex-direction:column;justify-content:center;align-items:center;
-opacity:0;pointer-events:none;transition:1s;
-}
+.highlightBtn{background:#25D366;box-shadow:0 0 25px #25D366;animation:pulse 1.5s infinite;}
 
-#celebration.show{opacity:1;pointer-events:auto;}
+@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.1);}100%{transform:scale(1);} }
 
-.highlightBtn{
-background:#25D366;box-shadow:0 0 25px #25D366;animation:pulse 1.5s infinite;
-}
+</style></head><body><audio id="music" src="song.mp3" loop></audio> <audio id="celebrationMusic" src="celebration.mp3"></audio> <audio id="noSound" src="angry.mp3"></audio>
 
-@keyframes pulse{
-0%{transform:scale(1);}50%{transform:scale(1.1);}100%{transform:scale(1);} }
-
-</style></head><body><audio id="music" src="song.mp3" loop></audio> <audio id="celebrationMusic" src="celebration.mp3"></audio> <audio id="noSound" src="angry.mp3"></audio> <audio id="shutterSound" src="camera.mp3"></audio>
-
-<section>
+<!-- Page 1 --><div class="page active" id="page1">
 <h1 class="heroTitle">For My Leelu ❤️</h1>
-<p>This is not just a website... it's my heart for you.</p>
-<button onclick="scrollNext()">Begin Our Story ✨</button>
-</section><section>
-<h1>Our Beautiful Memories 📸</h1>
+<button onclick="nextPage()">Begin Our Story ✨</button>
+</div><!-- Page 2 --><div class="page" id="page2">
+<h2>Our Memories 📸</h2>
 <div class="slideshowFrame">
 <div class="slideshow" id="slideshow"></div>
 </div>
-<button onclick="scrollNext()">Continue 💕</button>
-</section><section>
-<h1>Our Memory Timeline ❤️</h1>
+<button onclick="nextPage()">Continue 💕</button>
+</div><!-- Page 3 Timeline --><div class="page" id="page3">
+<h2>Our Memory Timeline ❤️</h2>
 <div class="timelineWrapper"><div class="memoryPhoto photoTopLeft"><img src="timeline1.jpg"></div>
 <div class="memoryPhoto photoTopRight"><img src="timeline2.jpg"></div>
 <div class="memoryPhoto photoBottomLeft"><img src="timeline3.jpg"></div>
 <div class="memoryPhoto photoBottomRight"><img src="timeline4.jpg"></div><div class="timelineCard">
 <p>✨ First meet - 11 October</p>
 <p>✨ First long chat - 18 October</p>
-<p>✨ First outing - To Kyarki (Not successful) 26 October</p>
+<p>✨ First outing - Kyarki (Not successful) - 26 October</p>
 <p>✨ 2nd Attempt to Kyarki 😅 - 28 October</p>
-<p>✨ First Night Out - 4th January</p>
-<p>✨ First Proposal - 5th January</p>
+<p>✨ First Night Out - 4 January</p>
+<p>✨ First Proposal - 5 January</p>
 <p>✨ Favorite Memory - Walking in Robber's Cave Holding hands 😊</p>
-</div></div>
-<button onclick="scrollNext()">Continue ❤️</button>
-</section><section>
-<h1>A Letter For You 💌</h1>
+</div>
+</div>
+<button onclick="nextPage()">Continue ❤️</button>
+</div><!-- Page 4 --><div class="page" id="page4">
+<h2>A Letter For You 💌</h2>
 <div class="loveCard">
-Vaishali, from the day you entered my life, everything changed.
+Vaishali, from the day you entered my life, everything changed. 
 You make my bad days better and good days unforgettable.
 No matter how many times we fight, I am never going to stop loving you.
 I will never give up on us. I will love you forever 😊💝
 </div>
-<button onclick="scrollNext()">One Last Thing ❤️</button>
-</section><section>
-<h1>Will You Be My Valentine? 💖</h1>
+<button onclick="nextPage()">One Last Thing ❤️</button>
+</div><!-- Page 5 Proposal --><div class="page" id="page5">
+<h2>Will You Be My Valentine? 💖</h2>
 <p id="reactionText"></p>
-<div id="proposalButtons">
 <button id="yesBtn">YES 💘</button>
 <button id="noBtn">NO 💔</button>
-</div>
-<video id="noVideo" class="videoBox" muted loop></video>
-</section><div id="celebration">
+</div><!-- Celebration --><div id="celebration">
 <div class="polaroid">
 <video id="yesVideo" src="yes.mp4" autoplay loop muted></video>
-<div class="polaroidText">Shukriya Leelu Yes bolne k liye 😊❤️</div>
+<p>Shukriya Leelu Yes bolne k liye 😊❤️</p>
 </div>
 <button class="highlightBtn" onclick="sendWhatsAppYes()">Say Yes On WhatsApp 💬</button>
 </div><script>
 
-/* Sparkles */
-setInterval(()=>{
-let s=document.createElement("div");
-s.className="sparkle";
-s.style.left=Math.random()*100+"vw";
-document.body.appendChild(s);
-setTimeout(()=>s.remove(),5000);
-},500);
-
-/* Floating hearts */
-setInterval(()=>{
-let heart=document.createElement("div");
-heart.innerHTML="❤️";
-heart.className="heartBg";
-heart.style.left=Math.random()*100+"vw";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),6000);
-},800);
-
-/* Music Fade */
-const music=document.getElementById("music");
-document.body.addEventListener("click",()=>{
-music.volume=0;music.play().catch(()=>{});
-let v=0;let f=setInterval(()=>{v+=0.05;if(v>=1) clearInterval(f);music.volume=v;},200);
-},{once:true});
-
-/* Section animation */
-const sections=document.querySelectorAll("section");
-const obs=new IntersectionObserver(e=>{
-e.forEach(x=>{if(x.isIntersecting) x.target.classList.add("visible");});});
-sections.forEach(s=>obs.observe(s));
-
-function scrollNext(){window.scrollBy({top:window.innerHeight,behavior:'smooth'});} 
-
-/* Slideshow */
-const photos=["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg"];
-let p=0;
-const slideshow=document.getElementById("slideshow");
-function slide(){slideshow.style.backgroundImage=`url(${photos[p]})`;p=(p+1)%photos.length;} slide();setInterval(slide,2500);
-
-/* Proposal */
-const noBtn=document.getElementById("noBtn");
-const yesBtn=document.getElementById("yesBtn");
-const celebration=document.getElementById("celebration");
-const celebrationMusic=document.getElementById("celebrationMusic");
-const noVideo=document.getElementById("noVideo");
-const noSound=document.getElementById("noSound");
-const shutterSound=document.getElementById("shutterSound");
-
-const noVideos=["no1.mp4","no2.mp4","no3.mp4"];
-const noMessages=["Please think again 🥺","You are breaking my heart 🥺","Leelu please mat kr aisa 🥺","Haan bol do na 😭"];
-
-let yesSize=1,noCount=0;
-
-noBtn.addEventListener("click",()=>{
-document.getElementById("reactionText").innerText=noMessages[noCount%noMessages.length];
-noVideo.src=noVideos[noCount%noVideos.length];
-noVideo.classList.add("show");noVideo.play();
-noSound.currentTime=0;noSound.play();
-
-let x=Math.random()*250-125;
-let y=Math.random()*150-75;
-noBtn.style.transform=`translate(${x}px,${y}px) scale(${1-noCount*0.08})`;
-
-yesSize+=0.2;yesBtn.style.transform=`scale(${yesSize})`;
-noCount++;
-});
-
-yesBtn.addEventListener("click",()=>{
-celebration.classList.add("show");
-celebrationMusic.currentTime=0;celebrationMusic.play();
-shutterSound.currentTime=0;shutterSound.play();
-});
-
-function sendWhatsAppYes(){
-window.open("https://wa.me/918384833836?text=Yes Bandru, I will be your valentine. ☺️😚");
+/* PAGE SYSTEM */
+let current=1;
+function nextPage(){
+document.getElementById('page'+current).classList.remove('active');
+current++;
+document.getElementById('page'+current).classList.add('active');
 }
 
-</script></body>
-  </html>
+/* Floating Background */
+setInterval(()=>{
+let heart=document.createElement('div');
+heart.innerHTML='❤️';
+heart.className='floatHeart';
+heart.style.left=Math.random()*100+'vw';
+heart.style.animationDuration=(Math.random()*3+4)+'s';
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),7000);
+},300);
+
+setInterval(()=>{
+let sp=document.createElement('div');
+sp.className='sparkle';
+sp.style.left=Math.random()*100+'vw';
+sp.style.animationDuration=(Math.random()*3+4)+'s';
+document.body.appendChild(sp);
+setTimeout(()=>sp.remove(),7000);
+},300);
+
+/* MUSIC */
+const music=document.getElementById('music');
+document.body.addEventListener('click',()=>{
+music.volume=1;
+music.play();
+setTimeout(()=>{
+let fade=setInterval(()=>{
+if(music.volume>0.3){music.volume-=0.05;} else clearInterval(fade);
+},500);
+},30000);
+},{once:true});
+
+/* Slideshow */
+const photos=['photo1.jpg','photo2.jpg','photo3.jpg','photo4.jpg','photo5.jpg'];
+let p=0;
+const slideshow=document.getElementById('slideshow');
+function slide(){slideshow.style.backgroundImage=`url(${photos[p]})`;p=(p+1)%photos.length;}
+setInterval(slide,2500);slide();
+
+/* Proposal */
+const noBtn=document.getElementById('noBtn');
+const yesBtn=document.getElementById('yesBtn');
+const celebration=document.getElementById('celebration');
+const noSound=document.getElementById('noSound');
+const celebrationMusic=document.getElementById('celebrationMusic');
+
+const noMsgs=['Please think again 🥺','Leelu please mat kr aisa 🥺','Haan bol do na 😭'];
+let n=0,yesSize=1;
+
+noBtn.onclick=()=>{
+document.getElementById('reactionText').innerText=noMsgs[n%noMsgs.length];
+noSound.play();
+let x=Math.random()*200-100;
+let y=Math.random()*150-75;
+noBtn.style.transform=`translate(${x}px,${y}px)`;
+yesSize+=0.2;
+yesBtn.style.transform=`scale(${yesSize})`;
+n++;
+};
+
+yesBtn.onclick=()=>{
+celebration.classList.add('show');
+celebrationMusic.play();
+};
+
+function sendWhatsAppYes(){
+window.open('https://wa.me/918384833836?text=Yes Bandru, I will be your valentine. ☺️😚');
+}
+
+</script><!-- HEART SCAN SCREEN --><div id="heartScanScreen" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; color:#00ffcc; z-index:9999; justify-content:center; align-items:center; flex-direction:column; text-align:center; padding:20px;">
+    <div id="typeText" style="font-size:1.4rem; font-family:monospace; white-space:pre-line;"></div>
+    <div id="scanAnimation" style="margin-top:30px; display:none; font-size:2rem; animation: pulse 1s infinite;">💓 Scanning Heart...</div>
+</div></body>
+</html>
